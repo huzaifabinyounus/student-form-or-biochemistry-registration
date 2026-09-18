@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Registration Portal | Institute of Space Technology (IST)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ist: {
+                            navy: '#002B49',
+                            darkNavy: '#001E33',
+                            blue: '#005596',
+                            gold: '#D4AF37',
+                            goldHover: '#C59B27',
+                            lightBg: '#F4F7FA',
+                            cardBg: '#FFFFFF',
+                            border: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7fa;
+            color: #1e293b;
+        }
+        .ist-header-gradient {
+            background: linear-gradient(135deg, #001E33 0%, #002B49 50%, #004070 100%);
+        }
+        .gold-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 43, 73, 0.08);
+        }
+        .input-focus {
+            transition: all 0.2s ease;
+        }
+        .input-focus:focus {
+            border-color: #005596;
+            box-shadow: 0 0 0 3px rgba(0, 85, 150, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- NAVIGATION / HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- IST Brand Logo & Title -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative w-12 h-12 flex-shrink-0 flex items-center justify-center bg-slate-50 rounded-xl p-1 border border-slate-200">
+                        <img id="istLogoImg" 
+                             src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Institute_of_Space_Technology_logo.png/220px-Institute_of_Space_Technology_logo.png" 
+                             alt="IST Logo" 
+                             class="max-h-full max-w-full object-contain"
+                             onerror="this.onerror=null; this.src='https://placehold.co/100x100/002B49/FFFFFF?text=IST';">
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h1 class="text-lg sm:text-xl font-bold text-ist-navy tracking-tight">Institute of Space Technology</h1>
+                            <span class="hidden md:inline-block px-2 py-0.5 text-[10px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded">Islamabad</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium">Academic Group Registration & Coursework Portal</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <div class="flex items-center space-x-2">
+                    <button id="navFormBtn" onclick="switchMainTab('form')" 
+                            class="px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all duration-200 flex items-center space-x-2 bg-ist-navy text-white shadow-sm">
+                        <i data-lucide="book-open" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Coursework Registration</span>
+                        <span class="sm:hidden">Forms</span>
+                    </button>
+                    <button id="navAdminBtn" onclick="switchMainTab('admin')" 
+                            class="px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all duration-200 flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Faculty / Admin Dashboard</span>
+                        <span class="sm:hidden">Admin</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ==================== STUDENT REGISTRATION VIEW ==================== -->
+        <div id="formPortalView" class="space-y-8">
+
+            <!-- IST Hero Banner -->
+            <div class="ist-header-gradient rounded-2xl text-white p-6 sm:p-8 relative overflow-hidden shadow-xl border border-slate-800">
+                <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none hidden md:block">
+                    <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polygon points="0,0 100,0 100,100" fill="#FFFFFF" />
+                    </svg>
+                </div>
+                <div class="relative z-10 space-y-3 max-w-3xl">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-semibold backdrop-blur-md border border-white/10">
+                        <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                        <span>Department of Basic Sciences & Humanities</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Coursework Group Registration Portal</h2>
+                    <p class="text-slate-200 text-sm leading-relaxed">
+                        Welcome to the official coursework registration system for IST students. Select your course below, configure your group size, and submit your group member details accurately.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Subject Cards Quick Selector -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Select Academic Subject</h3>
+                        <p class="text-xs text-slate-500">Choose your course section to begin group registration</p>
+                    </div>
+                    <span class="text-xs font-semibold text-ist-blue bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">6 Active Subjects</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="subjectCardsGrid">
+                    <!-- Cards will be populated by JS -->
+                </div>
+            </div>
+
+            <!-- REGISTRATION FORM SECTION -->
+            <div id="registrationFormAnchor" class="bg-white rounded-2xl border border-slate-200 card-shadow p-6 sm:p-8 space-y-6">
+                
+                <!-- Form Header -->
+                <div class="border-b border-slate-200 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span id="formSubjectBadge" class="px-2.5 py-0.5 rounded text-xs font-bold bg-ist-navy text-amber-400">
+                                Principle of Genetics
+                            </span>
+                            <span class="text-xs font-medium text-slate-400">Official IST Submission</span>
+                        </div>
+                        <h3 id="formTitleText" class="text-xl font-bold text-slate-900">Group Registration Form</h3>
+                    </div>
+                    <div class="text-xs text-slate-500">
+                        Fields marked with <span class="text-rose-500 font-bold">*</span> are required
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="groupRegistrationForm" onsubmit="handleFormSubmission(event)" class="space-y-8">
+                    
+                    <!-- SECTION 1: Subject & Registration Type -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50/70 p-5 rounded-xl border border-slate-200/80">
+                        <!-- Course Selector -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                Select Course / Subject <span class="text-rose-500">*</span>
+                            </label>
+                            <select id="courseSelect" onchange="onCourseSelectChange(this.value)" required
+                                    class="w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-sm font-semibold text-slate-800 outline-none input-focus">
+                                <option value="Principle of Genetics">Principle of Genetics</option>
+                                <option value="Biochemistry">Biochemistry (Project / Article)</option>
+                                <option value="Fehm-e-Quran">Fehm-e-Quran</option>
+                                <option value="Physical Chemistry">Physical Chemistry</option>
+                                <option value="Biophysics">Biophysics</option>
+                                <option value="Expository Writing">Expository Writing</option>
+                            </select>
+                        </div>
+
+                        <!-- Registration Category Type -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                                Registration Type <span class="text-rose-500">*</span>
+                            </label>
+                            <select id="registrationType" required
+                                    class="w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-sm font-semibold text-slate-800 outline-none input-focus">
+                                <option value="Group Presentation">Group Presentation</option>
+                                <option value="Term Project">Term Project</option>
+                                <option value="Research Article">Research Article</option>
+                                <option value="Lab Report / Assignment">Lab Report / Assignment</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: Group Information & Dynamic Member Count Selection -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-2 text-ist-navy font-bold text-base border-b border-slate-100 pb-2">
+                            <div class="w-7 h-7 rounded-lg bg-ist-navy text-white text-xs flex items-center justify-center font-extrabold">1</div>
+                            <h4>Group Configuration</h4>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Group Name / Number -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                    Group Name or Number <span class="text-rose-500">*</span>
+                                </label>
+                                <input type="text" id="groupName" required placeholder="e.g. Group 04 or Bio-Genetics Team A"
+                                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm outline-none input-focus">
+                            </div>
+
+                            <!-- Dynamic Member Count Control (1 to 6) -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                    Number of Group Members <span class="text-rose-500">*</span>
+                                </label>
+                                <div class="flex items-center space-x-3">
+                                    <select id="memberCountSelect" onchange="renderDynamicMemberFields(parseInt(this.value))"
+                                            class="w-full px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-sm font-bold text-ist-navy outline-none input-focus">
+                                        <option value="1">1 Member (Individual)</option>
+                                        <option value="2">2 Members</option>
+                                        <option value="3">3 Members</option>
+                                        <option value="4" selected>4 Members (Standard)</option>
+                                        <option value="5">5 Members</option>
+                                        <option value="6">6 Members (Maximum)</option>
+                                    </select>
+                                </div>
+                                <p class="text-[11px] text-slate-500 mt-1">Select member count to generate member input fields below.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: Dynamic Member Input Cards -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                            <div class="flex items-center space-x-2 text-ist-navy font-bold text-base">
+                                <div class="w-7 h-7 rounded-lg bg-ist-navy text-white text-xs flex items-center justify-center font-extrabold">2</div>
+                                <h4>Group Member Details</h4>
+                            </div>
+                            <span id="memberCountIndicator" class="text-xs font-bold text-ist-blue bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                                4 Members Selected
+                            </span>
+                        </div>
+
+                        <!-- Dynamic Fields Rendered Here -->
+                        <div id="dynamicMemberContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Dynamically generated via renderDynamicMemberFields() -->
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: Presentation / Project Topic Details -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-2 text-ist-navy font-bold text-base border-b border-slate-100 pb-2">
+                            <div class="w-7 h-7 rounded-lg bg-ist-navy text-white text-xs flex items-center justify-center font-extrabold">3</div>
+                            <h4>Topic & Coursework Details</h4>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                    Presentation Title / Project Topic <span class="text-rose-500">*</span>
+                                </label>
+                                <input type="text" id="projectTopic" required placeholder="e.g. CRISPR Gene Editing Applications in Agriculture"
+                                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm outline-none input-focus">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+                                    Supervisor / Course Instructor (Optional)
+                                </label>
+                                <input type="text" id="supervisorName" placeholder="e.g. Dr. Ahmed Khan"
+                                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm outline-none input-focus">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="pt-4 border-t border-slate-200 flex items-center justify-end space-x-4">
+                        <button type="button" onclick="resetRegistrationForm()"
+                                class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition-colors">
+                            Reset Form
+                        </button>
+                        <button type="submit" id="submitFormBtn"
+                                class="px-7 py-2.5 rounded-xl bg-ist-navy hover:bg-ist-darkNavy text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center space-x-2">
+                            <span>Submit Group Registration</span>
+                            <i data-lucide="send" class="w-4 h-4 text-amber-400"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- SUCCESS MESSAGE CARD -->
+                <div id="formSuccessCard" class="hidden bg-emerald-50/80 border border-emerald-200 rounded-2xl p-8 text-center space-y-6">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner border border-emerald-200">
+                        <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+                    </div>
+                    <div class="space-y-2 max-w-lg mx-auto">
+                        <h3 class="text-2xl font-extrabold text-slate-900">Group Registration Submitted!</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Your group has been successfully registered in the IST database. Please ensure all student roll numbers and names match your official university credentials.
+                        </p>
+                    </div>
+                    <div class="pt-2">
+                        <button onclick="registerAnotherGroup()" class="px-6 py-2.5 rounded-xl bg-ist-navy text-white text-xs sm:text-sm font-bold hover:bg-ist-darkNavy transition-all shadow-md">
+                            Register Another Group
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== FACULTY / ADMIN DASHBOARD VIEW ==================== -->
+        <div id="adminPortalView" class="hidden space-y-8">
+
+            <!-- AUTHENTICATION CARD -->
+            <div id="adminAuthBox" class="max-w-md mx-auto bg-white rounded-2xl border border-slate-200 card-shadow p-8 text-center space-y-5">
+                <div class="w-14 h-14 bg-blue-50 text-ist-navy rounded-2xl flex items-center justify-center mx-auto border border-blue-100 shadow-sm">
+                    <i data-lucide="lock" class="w-7 h-7"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900">Faculty Access Portal</h3>
+                    <p class="text-slate-500 text-xs mt-1">Authorized IST faculty and course coordinators only.</p>
+                </div>
+                <div class="space-y-3">
+                    <input type="password" id="adminPasscode" placeholder="Default Passcode: admin123"
+                           class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-center font-medium text-sm outline-none input-focus">
+                    <button onclick="unlockAdminDashboard()" class="w-full py-2.5 rounded-lg bg-ist-navy hover:bg-ist-darkNavy text-white font-bold text-sm shadow transition-all">
+                        Unlock Dashboard
+                    </button>
+                    <p id="authErrorMessage" class="text-xs text-rose-600 font-semibold hidden">Incorrect passcode. Default is 'admin123'.</p>
+                </div>
+            </div>
+
+            <!-- UNLOCKED DASHBOARD CONTENT -->
+            <div id="adminDashboardContent" class="hidden space-y-8">
+                
+                <!-- Dashboard Control Header -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 card-shadow flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800">IST Faculty View</span>
+                            <h2 class="text-xl font-extrabold text-slate-900">Coursework Registrations Dashboard</h2>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">Live submissions table, course filtering, and Google Sheets synchronization.</p>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <button onclick="openAppsScriptModal()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg transition-all flex items-center space-x-1.5 shadow-sm">
+                            <i data-lucide="code" class="w-4 h-4"></i>
+                            <span>Apps Script Setup</span>
+                        </button>
+                        <button onclick="exportTableToCSV()" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-lg transition-all flex items-center space-x-1.5 shadow-sm">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span>Export CSV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Google Apps Script URL Bridge Configuration -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-5 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="sheet" class="w-5 h-5 text-ist-blue"></i>
+                            <h4 class="text-sm font-bold text-slate-900">Google Sheet Synchronization Bridge</h4>
+                        </div>
+                        <span id="scriptStatusBadge" class="text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-amber-100 text-amber-800">
+                            Not Configured
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-600">
+                        Paste your deployed Google Apps Script Web App URL below to automatically sync student registrations directly into your official Google Sheet:
+                    </p>
+                    <div class="flex gap-2">
+                        <input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec"
+                               class="flex-1 px-3.5 py-2 text-xs rounded-lg border border-slate-300 bg-white outline-none input-focus">
+                        <button onclick="saveAppsScriptUrl()" class="px-4 py-2 bg-ist-navy text-white text-xs font-bold rounded-lg hover:bg-ist-darkNavy transition-all">
+                            Save Web App URL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Metrics Summary Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-blue-50 text-ist-blue rounded-xl">
+                            <i data-lucide="users-2" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total Groups</p>
+                            <h4 id="metricTotalGroups" class="text-xl font-extrabold text-slate-900">0</h4>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-amber-50 text-amber-700 rounded-xl">
+                            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Registered Students</p>
+                            <h4 id="metricTotalStudents" class="text-xl font-extrabold text-slate-900">0</h4>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-emerald-50 text-emerald-700 rounded-xl">
+                            <i data-lucide="dna" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Genetics Groups</p>
+                            <h4 id="metricGenetics" class="text-xl font-extrabold text-slate-900">0</h4>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-purple-50 text-purple-700 rounded-xl">
+                            <i data-lucide="flask-conical" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Biochemistry</p>
+                            <h4 id="metricBiochem" class="text-xl font-extrabold text-slate-900">0</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Filters & Search -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+                    <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                        <!-- Search Box -->
+                        <div class="relative w-full sm:w-64">
+                            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+                            <input type="text" id="adminSearchInput" oninput="renderAdminTable()" placeholder="Search name, roll, group, topic..."
+                                   class="w-full pl-9 pr-4 py-2 bg-slate-50 rounded-lg border border-slate-200 text-xs outline-none input-focus">
+                        </div>
+
+                        <!-- Course Subject Filter -->
+                        <select id="adminCourseFilter" onchange="renderAdminTable()" 
+                                class="w-full sm:w-auto px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 outline-none">
+                            <option value="ALL">All Subjects</option>
+                            <option value="Principle of Genetics">Principle of Genetics</option>
+                            <option value="Biochemistry">Biochemistry</option>
+                            <option value="Fehm-e-Quran">Fehm-e-Quran</option>
+                            <option value="Physical Chemistry">Physical Chemistry</option>
+                            <option value="Biophysics">Biophysics</option>
+                            <option value="Expository Writing">Expository Writing</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                        <button onclick="renderAdminTable()" class="px-3 py-2 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-semibold flex items-center space-x-1">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                            <span>Refresh</span>
+                        </button>
+                        <button onclick="clearAllDataPrompt()" class="px-3 py-2 text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg font-semibold">
+                            Clear All Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submissions Table -->
+                <div class="bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+                                    <th class="p-3.5">Course / Type</th>
+                                    <th class="p-3.5">Time</th>
+                                    <th class="p-3.5">Group</th>
+                                    <th class="p-3.5">Members</th>
+                                    <th class="p-3.5">Member Details (Name & IST ID)</th>
+                                    <th class="p-3.5">Topic / Title</th>
+                                    <th class="p-3.5 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody" class="divide-y divide-slate-100 text-xs text-slate-700">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="adminEmptyMsg" class="p-8 text-center text-slate-400 text-xs hidden">
+                        No student registrations match the selected criteria.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- APPS SCRIPT INTEGRATION MODAL -->
+    <div id="appsScriptModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="file-code-2" class="w-5 h-5 text-ist-blue"></i>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">Google Apps Script Integration (Code.gs)</h3>
+                </div>
+                <button onclick="closeAppsScriptModal()" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-4 text-xs text-slate-600 leading-relaxed">
+                <p class="font-semibold text-slate-800">
+                    Copy and paste this code into your Google Sheet's Apps Script editor to receive submissions in real time:
+                </p>
+
+                <div class="relative">
+                    <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl text-[11px] font-mono overflow-x-auto leading-normal">
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // Create Headers on first run
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "Timestamp", "Course", "Registration Type", "Group Name", 
+        "Total Members", "Member Details", "Topic / Title", "Supervisor"
+      ]);
+      sheet.getRange(1, 1, 1, 8).setFontWeight("bold");
+    }
+    
+    // Format Members List
+    var memberDetailsStr = "";
+    if (data.members && data.members.length > 0) {
+      memberDetailsStr = data.members.map(function(m, idx) {
+        return "M" + (idx+1) + ": " + m.name + " (" + m.roll + ")";
+      }).join("; ");
+    }
+    
+    sheet.appendRow([
+      data.timestamp || new Date().toLocaleString(),
+      data.course || "N/A",
+      data.regType || "Group Registration",
+      data.groupName || "N/A",
+      data.memberCount || (data.members ? data.members.length : 0),
+      memberDetailsStr,
+      data.topic || "N/A",
+      data.supervisor || "N/A"
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({"result": "error", "message": err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+</pre>
+                    <button onclick="copyScriptCodeToClipboard()" class="absolute top-3 right-3 px-3 py-1 bg-white/20 hover:bg-white/30 text-white rounded text-[10px] font-semibold">
+                        Copy Code
+                    </button>
+                </div>
+
+                <ol class="list-decimal pl-4 space-y-1 font-medium text-slate-800">
+                    <li>Open Google Sheet &gt; Extensions &gt; Apps Script.</li>
+                    <li>Paste the code into <code>Code.gs</code> and click Save.</li>
+                    <li>Deploy &gt; New deployment &gt; Select Web app.</li>
+                    <li>Set <strong>Execute as: Me</strong> and <strong>Who has access: Anyone</strong>.</li>
+                    <li>Deploy and paste the Web App URL into the Faculty Dashboard input field!</li>
+                </ol>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-200 text-right">
+                <button onclick="closeAppsScriptModal()" class="px-5 py-2 bg-ist-navy text-white font-bold text-xs rounded-lg">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+            <p class="font-semibold text-slate-700">Institute of Space Technology (IST), Islamabad</p>
+            <p>1 Standard Islamabad Highway, Near Rawat Toll Plaza, Islamabad, Pakistan</p>
+            <p class="text-[11px] text-slate-400">Official Coursework Registration System</p>
+        </div>
+    </footer>
+
+    <!-- APPLICATION JAVASCRIPT LOGIC -->
+    <script>
+        // Subject Configuration Data
+        const SUBJECTS = [
+            {
+                id: 'Principle of Genetics',
+                name: 'Principle of Genetics',
+                code: 'BIO-301',
+                icon: 'dna',
+                color: 'from-blue-600 to-indigo-700',
+                desc: 'Group coursework and genetic analysis presentations.'
+            },
+            {
+                id: 'Biochemistry',
+                name: 'Biochemistry (Project / Article)',
+                code: 'BIO-302',
+                icon: 'flask-conical',
+                color: 'from-emerald-600 to-teal-700',
+                desc: 'Laboratory research project or scientific review article.'
+            },
+            {
+                id: 'Fehm-e-Quran',
+                name: 'Fehm-e-Quran',
+                code: 'ISL-101',
+                icon: 'book',
+                color: 'from-amber-600 to-yellow-700',
+                desc: 'Understanding Quranic principles and group presentations.'
+            },
+            {
+                id: 'Physical Chemistry',
+                name: 'Physical Chemistry',
+                code: 'CHM-201',
+                icon: 'atom',
+                color: 'from-cyan-600 to-blue-700',
+                desc: 'Thermodynamics, kinetics, and molecular physical projects.'
+            },
+            {
+                id: 'Biophysics',
+                name: 'Biophysics',
+                code: 'PHY-305',
+                icon: 'activity',
+                color: 'from-purple-600 to-indigo-800',
+                desc: 'Physical mechanisms in biological systems coursework.'
+            },
+            {
+                id: 'Expository Writing',
+                name: 'Expository Writing',
+                code: 'ENG-102',
+                icon: 'pen-tool',
+                color: 'from-rose-600 to-pink-700',
+                desc: 'Academic paper writing and technical argument presentations.'
+            }
+        ];
+
+        // Storage Keys
+        const STORAGE_KEY = 'ist_academic_submissions_v1';
+        const SCRIPT_URL_KEY = 'ist_apps_script_url';
+        const DEFAULT_PASSCODE = 'admin123';
+
+        // Application State
+        let submissions = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        let appsScriptUrl = localStorage.getItem(SCRIPT_URL_KEY) || '';
+        let isAdminUnlocked = false;
+
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSubjectCards();
+            renderDynamicMemberFields(4); // Default 4 members
+            updateScriptStatusBadge();
+            lucide.createIcons();
+        });
+
+        // Main View Switcher
+        function switchMainTab(tab) {
+            const formView = document.getElementById('formPortalView');
+            const adminView = document.getElementById('adminPortalView');
+            const navFormBtn = document.getElementById('navFormBtn');
+            const navAdminBtn = document.getElementById('navAdminBtn');
+
+            if (tab === 'form') {
+                formView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                navFormBtn.className = "px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg flex items-center space-x-2 bg-ist-navy text-white shadow-sm";
+                navAdminBtn.className = "px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent";
+            } else {
+                formView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                navAdminBtn.className = "px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg flex items-center space-x-2 bg-ist-navy text-white shadow-sm";
+                navFormBtn.className = "px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent";
+                if (isAdminUnlocked) renderAdminTable();
+            }
+        }
+
+        // Render Subject Selection Cards Grid
+        function renderSubjectCards() {
+            const grid = document.getElementById('subjectCardsGrid');
+            grid.innerHTML = '';
+
+            SUBJECTS.forEach(sub => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-xl border border-slate-200 card-shadow hover:border-ist-blue hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between space-y-4";
+                card.onclick = () => selectCourseFromCard(sub.id);
+
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">${sub.code}</span>
+                            <div class="w-8 h-8 rounded-lg bg-gradient-to-r ${sub.color} text-white flex items-center justify-center shadow-sm">
+                                <i data-lucide="${sub.icon}" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm group-hover:text-ist-blue transition-colors">${sub.name}</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">${sub.desc}</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-ist-blue">
+                        <span>Select Course</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Select Course from Subject Card
+        function selectCourseFromCard(courseId) {
+            const select = document.getElementById('courseSelect');
+            select.value = courseId;
+            onCourseSelectChange(courseId);
+
+            // Smooth scroll down to registration form
+            document.getElementById('registrationFormAnchor').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Handle Course Select Change
+        function onCourseSelectChange(courseName) {
+            document.getElementById('formSubjectBadge').innerText = courseName;
+            document.getElementById('formTitleText').innerText = `${courseName} Group Registration`;
+        }
+
+        // DYNAMIC MEMBER FIELDS GENERATOR
+        function renderDynamicMemberFields(count) {
+            const container = document.getElementById('dynamicMemberContainer');
+            const countIndicator = document.getElementById('memberCountIndicator');
+            container.innerHTML = '';
+
+            countIndicator.innerText = `${count} Member${count > 1 ? 's' : ''} Selected`;
+
+            for (let i = 1; i <= count; i++) {
+                const memberCard = document.createElement('div');
+                memberCard.className = "p-4 bg-slate-50/80 border border-slate-200 rounded-xl space-y-3";
+                
+                memberCard.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-200/60 pb-1.5">
+                        <span class="text-xs font-bold text-ist-navy uppercase tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="user" class="w-3.5 h-3.5 text-ist-blue"></i> Member ${i} <span class="text-rose-500">*</span>
+                        </span>
+                        <span class="text-[10px] font-semibold text-slate-400">Required</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-[11px] font-medium text-slate-600 mb-1">Full Name *</label>
+                            <input type="text" id="member_name_${i}" required placeholder="e.g. Ali Ahmed"
+                                   class="w-full px-3.5 py-2 bg-white rounded-lg border border-slate-300 text-xs outline-none input-focus">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-medium text-slate-600 mb-1">IST Roll / Registration ID *</label>
+                            <input type="text" id="member_roll_${i}" required placeholder="e.g. IST-2023-${100 + i}"
+                                   class="w-full px-3.5 py-2 bg-white rounded-lg border border-slate-300 text-xs outline-none input-focus">
+                        </div>
+                    </div>
+                `;
+                container.appendChild(memberCard);
+            }
+            lucide.createIcons();
+        }
+
+        // Form Submission Handler
+        async function handleFormSubmission(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitFormBtn');
+            submitBtn.disabled = true;
+
+            const count = parseInt(document.getElementById('memberCountSelect').value);
+            const membersList = [];
+
+            // Collect dynamic member fields
+            for (let i = 1; i <= count; i++) {
+                const nameVal = document.getElementById(`member_name_${i}`).value.trim();
+                const rollVal = document.getElementById(`member_roll_${i}`).value.trim();
+                
+                if (!nameVal || !rollVal) {
+                    alert(`Please enter both Name and Roll Number for Member ${i}`);
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                membersList.push({
+                    memberIndex: i,
+                    name: nameVal,
+                    roll: rollVal
+                });
+            }
+
+            const payload = {
+                id: Date.now().toString(),
+                timestamp: new Date().toLocaleString(),
+                course: document.getElementById('courseSelect').value,
+                regType: document.getElementById('registrationType').value,
+                groupName: document.getElementById('groupName').value.trim(),
+                memberCount: count,
+                members: membersList,
+                topic: document.getElementById('projectTopic').value.trim(),
+                supervisor: document.getElementById('supervisorName').value.trim() || 'N/A'
+            };
+
+            // Save to LocalStorage immediately
+            submissions.unshift(payload);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
+
+            // Sync to Google Apps Script Web App if configured
+            if (appsScriptUrl) {
+                try {
+                    await fetch(appsScriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (err) {
+                    console.warn("Apps Script submission error:", err);
+                }
+            }
+
+            // Show Success State
+            document.getElementById('groupRegistrationForm').classList.add('hidden');
+            document.getElementById('formSuccessCard').classList.remove('hidden');
+            submitBtn.disabled = false;
+        }
+
+        function registerAnotherGroup() {
+            document.getElementById('groupRegistrationForm').reset();
+            renderDynamicMemberFields(4);
+            document.getElementById('formSuccessCard').classList.add('hidden');
+            document.getElementById('groupRegistrationForm').classList.remove('hidden');
+        }
+
+        function resetRegistrationForm() {
+            document.getElementById('groupRegistrationForm').reset();
+            renderDynamicMemberFields(4);
+        }
+
+        // Admin Unlock Verification
+        function unlockAdminDashboard() {
+            const inputVal = document.getElementById('adminPasscode').value;
+            if (inputVal === DEFAULT_PASSCODE) {
+                isAdminUnlocked = true;
+                document.getElementById('adminAuthBox').classList.add('hidden');
+                document.getElementById('adminDashboardContent').classList.remove('hidden');
+                document.getElementById('scriptUrlInput').value = appsScriptUrl;
+                renderAdminTable();
+            } else {
+                document.getElementById('authErrorMessage').classList.remove('hidden');
+            }
+        }
+
+        // Save Web App URL
+        function saveAppsScriptUrl() {
+            appsScriptUrl = document.getElementById('scriptUrlInput').value.trim();
+            localStorage.setItem(SCRIPT_URL_KEY, appsScriptUrl);
+            updateScriptStatusBadge();
+            alert("Google Apps Script Web App URL saved successfully!");
+        }
+
+        function updateScriptStatusBadge() {
+            const badge = document.getElementById('scriptStatusBadge');
+            if (!badge) return;
+            badge.innerText = appsScriptUrl ? "Connected & Active" : "Not Configured";
+            badge.className = appsScriptUrl 
+                ? "text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800"
+                : "text-[11px] px-2.5 py-0.5 rounded-full font-bold bg-amber-100 text-amber-800";
+        }
+
+        // Render Admin Responses Table
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            const search = document.getElementById('adminSearchInput').value.toLowerCase();
+            const courseFilter = document.getElementById('adminCourseFilter').value;
+
+            tbody.innerHTML = '';
+
+            let totalStuds = 0;
+            let geneticsCount = 0;
+            let biochemCount = 0;
+
+            submissions.forEach(s => {
+                totalStuds += s.members.length;
+                if (s.course.includes('Genetics')) geneticsCount++;
+                if (s.course.includes('Biochemistry')) biochemCount++;
+            });
+
+            document.getElementById('metricTotalGroups').innerText = submissions.length;
+            document.getElementById('metricTotalStudents').innerText = totalStuds;
+            document.getElementById('metricGenetics').innerText = geneticsCount;
+            document.getElementById('metricBiochem').innerText = biochemCount;
+
+            const filtered = submissions.filter(s => {
+                const matchesCourse = (courseFilter === 'ALL') || (s.course === courseFilter);
+                
+                const searchStr = `${s.groupName} ${s.topic} ${s.course} ${s.members.map(m => m.name + ' ' + m.roll).join(' ')}`.toLowerCase();
+                const matchesSearch = searchStr.includes(search);
+
+                return matchesCourse && matchesSearch;
+            });
+
+            document.getElementById('adminEmptyMsg').classList.toggle('hidden', filtered.length > 0);
+
+            filtered.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 border-b border-slate-100 transition-colors";
+
+                const membersHTML = s.members.map(m => `
+                    <div class="py-0.5">
+                        <span class="font-semibold text-slate-800">${escapeHtml(m.name)}</span> 
+                        <span class="text-[10px] text-slate-400 font-mono">(${escapeHtml(m.roll)})</span>
+                    </div>
+                `).join('');
+
+                tr.innerHTML = `
+                    <td class="p-3.5">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-ist-navy text-amber-300 block w-fit mb-1">${escapeHtml(s.course)}</span>
+                        <span class="text-[10px] text-slate-500 font-medium">${escapeHtml(s.regType)}</span>
+                    </td>
+                    <td class="p-3.5 text-slate-500 whitespace-nowrap text-[11px]">${s.timestamp}</td>
+                    <td class="p-3.5 font-bold text-slate-900">${escapeHtml(s.groupName)}</td>
+                    <td class="p-3.5 font-bold text-slate-700 text-center">${s.members.length}</td>
+                    <td class="p-3.5 max-w-xs">${membersHTML}</td>
+                    <td class="p-3.5 max-w-xs truncate">${escapeHtml(s.topic)}</td>
+                    <td class="p-3.5 text-center">
+                        <button onclick="deleteSubmission('${s.id}')" class="text-rose-500 hover:text-rose-700 p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            lucide.createIcons();
+        }
+
+        function deleteSubmission(id) {
+            submissions = submissions.filter(s => s.id !== id);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
+            renderAdminTable();
+        }
+
+        function clearAllDataPrompt() {
+            if (confirm("Are you sure you want to clear all registrations? This action cannot be undone.")) {
+                submissions = [];
+                localStorage.removeItem(STORAGE_KEY);
+                renderAdminTable();
+            }
+        }
+
+        // CSV Export
+        function exportTableToCSV() {
+            if (submissions.length === 0) return alert("No submissions available to export.");
+
+            const headers = ["ID", "Timestamp", "Course", "Registration Type", "Group Name", "Total Members", "Member Details", "Topic / Title", "Supervisor"];
+            
+            const rows = submissions.map(s => {
+                const membersStr = s.members.map(m => `${m.name} (${m.roll})`).join("; ");
+                return [
+                    `"${s.id}"`,
+                    `"${s.timestamp}"`,
+                    `"${s.course}"`,
+                    `"${s.regType}"`,
+                    `"${s.groupName}"`,
+                    `"${s.members.length}"`,
+                    `"${membersStr}"`,
+                    `"${s.topic}"`,
+                    `"${s.supervisor}"`
+                ];
+            });
+
+            const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+            const link = document.createElement("a");
+            link.href = encodeURI(csvContent);
+            link.download = `IST_Academic_Registrations_${Date.now()}.csv`;
+            link.click();
+        }
+
+        // Apps Script Modal
+        function openAppsScriptModal() {
+            document.getElementById('appsScriptModal').classList.remove('hidden');
+        }
+
+        function closeAppsScriptModal() {
+            document.getElementById('appsScriptModal').classList.add('hidden');
+        }
+
+        function copyScriptCodeToClipboard() {
+            const scriptCode = `function doPost(e) {\n  try {\n    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();\n    var data = JSON.parse(e.postData.contents);\n    if (sheet.getLastRow() === 0) {\n      sheet.appendRow(["Timestamp", "Course", "Registration Type", "Group Name", "Total Members", "Member Details", "Topic / Title", "Supervisor"]);\n    }\n    var memberDetailsStr = "";\n    if (data.members && data.members.length > 0) {\n      memberDetailsStr = data.members.map(function(m, idx) { return "M" + (idx+1) + ": " + m.name + " (" + m.roll + ")"; }).join("; ");\n    }\n    sheet.appendRow([data.timestamp || new Date().toLocaleString(), data.course || "N/A", data.regType || "Group Registration", data.groupName || "N/A", data.memberCount || (data.members ? data.members.length : 0), memberDetailsStr, data.topic || "N/A", data.supervisor || "N/A"]);\n    return ContentService.createTextOutput(JSON.stringify({"result": "success"})).setMimeType(ContentService.MimeType.JSON);\n  } catch(err) { return ContentService.createTextOutput(JSON.stringify({"result": "error", "message": err.toString()})).setMimeType(ContentService.MimeType.JSON); }\n}`;
+            const t = document.createElement('textarea');
+            t.value = scriptCode;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand('copy');
+            document.body.removeChild(t);
+            alert("Apps Script code copied to clipboard!");
+        }
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+    </script>
+</body>
+</html>
