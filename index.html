@@ -639,7 +639,7 @@ function doPost(e) {
 
         // Application State
         let submissions = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        let appsScriptUrl = localStorage.getItem(SCRIPT_URL_KEY) || '';
+        let appsScriptUrl = localStorage.getItem('ist_script_url') || 'https://script.google.com/macros/s/AKfycbzDa9a6Pa97qewXzoFux4_cHmlyd1ROj_GMDaBHOi9Ua2BR3umLDp5-yOV_8YqvFgjxg/exec';
         let isAdminUnlocked = false;
 
         // Initialization
